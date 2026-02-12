@@ -22,7 +22,7 @@ export default function Home() {
 
       <div className="w-full max-w-5xl rounded-2xl border border-white/20 bg-white/5 p-6">
         <p className="text-sm opacity-70 mb-4">Testimonials</p>
-        <Carousel items={items} />
+        <carousel items={items} />
       </div>
     </main>
   );
