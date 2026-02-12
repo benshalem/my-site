@@ -1,4 +1,4 @@
-import carousel from "@/components/carousel";
+import Carousel from "@/components/Carousel";
 
 export default function Home() {
   const items = [
@@ -22,7 +22,7 @@ export default function Home() {
 
       <div className="w-full max-w-5xl rounded-2xl border border-white/20 bg-white/5 p-6">
         <p className="text-sm opacity-70 mb-4">Testimonials</p>
-        <carousel items={items} />
+        <Carousel items={items} />
       </div>
     </main>
   );

@@ -2,17 +2,17 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
-type carouselProps = {
+type CarouselProps = {
   items: React.ReactNode[];
   autoPlay?: boolean;
   autoPlayInterval?: number;
 };
 
-export default function carousel({
+export default function Carousel({
   items,
   autoPlay = true,
   autoPlayInterval = 4500,
-}: carouselProps) {
+}: CarouselProps) {
   const [index, setIndex] = useState(0);
   const startX = useRef<number | null>(null);
   const isDragging = useRef(false);
@@ -20,8 +20,8 @@ export default function carousel({
   const count = items.length;
 
   const goTo = (i: number) => {
-    const next = (i + count) % count;
-    setIndex(next);
+    const nextIndex = (i + count) % count;
+    setIndex(nextIndex);
   };
 
   const next = () => goTo(index + 1);
@@ -66,7 +66,7 @@ export default function carousel({
   if (!items || items.length === 0) {
     return (
       <div className="rounded-xl border border-white/10 bg-white/5 p-6 text-sm opacity-70">
-        No items provided to carousel.
+        No items provided to Carousel.
       </div>
     );
   }
