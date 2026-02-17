@@ -19,44 +19,38 @@
   }
 }
 
-/* Option 1: Ensure full viewport coverage */
+/* Ensure full viewport coverage */
 html, body {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   margin: 0;
   padding: 0;
 }
 
-/* Reset body default background */
+/* Body base */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
   position: relative;
-  min-height: 100vh;
+  min-height: 100dvh; /* modern mobile-safe viewport height */
+  overflow-x: hidden;
 }
 
-/* Options 2 + 3: Responsive background layer with overlay */
+/* Fully responsive fixed background layer */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: url('/background.webp'); /* ✅ adjust extension if .jpg */
-  background-size: cover;       /* scales responsively */
-  background-position: center;  /* keeps focus centered */
+  width: 100%;
+  height: 100%;
+  background-image: url('/background.webp');
+  background-size: cover;       /* always fills screen */
+  background-position: center center;
   background-repeat: no-repeat;
-  background-attachment: scroll; /* safer for mobile */
   z-index: -1;
 
-  /* Semi-transparent overlay for readability */
+  /* Optional overlay for readability */
   background-color: rgba(0, 0, 0, 0.4);
   background-blend-mode: darken;
-}
-
-/* Option 4: Mobile fine-tuning */
-@media (max-width: 768px) {
-  body::before {
-    background-size: contain; /* show full image on small screens */
-    background-attachment: scroll; /* avoid fixed issues on mobile */
-  }
 }
