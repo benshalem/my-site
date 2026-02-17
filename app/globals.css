@@ -19,6 +19,13 @@
   }
 }
 
+/* Ensure full viewport coverage */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 /* Reset body default background */
 body {
   background: var(--background);
@@ -28,14 +35,19 @@ body {
   min-height: 100vh;
 }
 
-/* Fixed background layer (works on all browsers including mobile) */
+/* Responsive background layer with overlay */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: url('/background.webp');
-  background-size: cover;
-  background-position: center;
+  background-image: url('/background.webp'); /* ✅ adjust extension if .jpg */
+  background-size: cover;       /* scales responsively */
+  background-position: center;  /* keeps focus centered */
   background-repeat: no-repeat;
+  background-attachment: scroll; /* safer for mobile */
   z-index: -1;
+
+  /* Semi-transparent overlay for readability */
+  background-color: rgba(0, 0, 0, 0.4);
+  background-blend-mode: darken;
 }
