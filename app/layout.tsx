@@ -27,6 +27,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* All content will now sit on top of the fixed background */}
         {children}
       </body>
     </html>
