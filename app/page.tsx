@@ -1,13 +1,37 @@
+"use client";
+
+import { useState, useEffect } from 'react';
 import styles from './page.module.css';
 
 export default function Page() {
+  // Replace these URLs with your actual image paths
+  const images = [
+    "https://picsum.photos/seed/10/800/450",
+    "https://picsum.photos/seed/20/800/450",
+    "https://picsum.photos/seed/30/800/450",
+    "https://picsum.photos/seed/40/800/450",
+    "https://picsum.photos/seed/50/800/450",
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Auto-play effect: changes the image every 3 seconds
+  // Adding currentIndex to the dependency array ensures the timer resets if the user clicks a dot!
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000);
+
+    return () => clearInterval(timer); // Cleanup on unmount or index change
+  }, [currentIndex, images.length]);
+
   return (
     <main className="min-h-screen flex flex-col items-center justify-center gap-10 p-8">
       <h1 className={styles.title}>Hello World</h1>
 
       <h1 className="text-4xl font-bold">Ben Shalem 🚀</h1>
 
-      {/* YouTube Video - Responsive */}
+      {/* YouTube Video - Responsive 16:9 */}
       <div className="w-full max-w-3xl">
         <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
           <iframe
@@ -21,19 +45,42 @@ export default function Page() {
         </div>
       </div>
 
-      {/* Image Carousel (5 Images with thin white borders) */}
+      {/* Image Carousel - Identical responsive size to the video */}
       <div className="w-full max-w-3xl">
-        <div className="flex overflow-x-auto gap-4 snap-x snap-mandatory hide-scrollbar py-4">
-          {[1, 2, 3, 4, 5].map((item) => (
-            <div key={item} className="flex-shrink-0 w-64 h-64 snap-center">
-              {/* Replace the src with your actual image paths like "/my-image-1.jpg" */}
-              <img
-                src={`https://picsum.photos/seed/${item + 20}/400/400`}
-                alt={`Carousel image ${item}`}
-                className="w-full h-full object-cover rounded-xl border border-white"
+        <div className="relative w-full overflow-hidden rounded-2xl border border-white group" style={{ paddingBottom: '56.25%' }}>
+          
+          {/* Sliding Images */}
+          <div 
+            className="absolute top-0 left-0 w-full h-full flex transition-transform duration-700 ease-in-out"
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {images.map((src, index) => (
+              <div key={index} className="min-w-full h-full flex-shrink-0">
+                <img
+                  src={src}
+                  alt={`Carousel slide ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Clickable Navigation Dots */}
+          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 z-10">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 shadow-sm ${
+                  currentIndex === index 
+                    ? 'bg-white scale-125' 
+                    : 'bg-white/50 hover:bg-white/80'
+                }`}
+                aria-label={`Go to image ${index + 1}`}
               />
-            </div>
-          ))}
+            ))}
+          </div>
+
         </div>
       </div>
 
