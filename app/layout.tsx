@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Image from "next/image";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -26,11 +27,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div className="site-bg">
-          <img
+          <Image
             src="/background.webp"
-            alt=""
+            alt="Site Background"
+            fill
+            priority
+            quality={90}
             className="site-bg-image"
-            fetchPriority="high" /* <-- Prioritizes the background image for instant loading */
           />
         </div>
 
