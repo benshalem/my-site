@@ -25,16 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {/* Fixed Background Layer */}
         <div className="site-bg">
-          <img 
-            src="/background.webp" 
-            alt="" 
+          <img
+            src="/background.webp"
+            alt=""
             className="site-bg-image"
           />
         </div>
 
-        {/* Your Site Content */}
         <main className="relative z-10">
           {children}
         </main>
