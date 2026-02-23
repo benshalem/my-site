@@ -19,39 +19,36 @@
   }
 }
 
-/* Base resets to prevent scroll gaps */
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, sans-serif;
-  /* Use relative so the background fixed div stays behind everything */
-  position: relative; 
+  position: relative;
 }
 
-/* The Background Wrapper */
 .site-bg {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  height: 100dvh; /* Dynamic height for mobile */
-  z-index: -1; /* Send to back */
+  height: 100dvh;
+  z-index: -1;
   overflow: hidden;
 }
 
 .site-bg-image {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* This is the key for responsiveness */
+  object-fit: cover;
   object-position: center;
-  /* Apply your dark overlay here */
-  filter: brightness(0.6); 
+  filter: brightness(0.6);
 }
