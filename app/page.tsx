@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import styles from './page.module.css';
 
 export default function Page() {
-  // Replace these URLs with your actual image paths
   const images = [
     "https://picsum.photos/seed/10/800/450",
     "https://picsum.photos/seed/20/800/450",
@@ -15,14 +14,12 @@ export default function Page() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Auto-play effect: changes the image every 3 seconds
-  // Adding currentIndex to the dependency array ensures the timer resets if the user clicks a dot!
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 3000);
 
-    return () => clearInterval(timer); // Cleanup on unmount or index change
+    return () => clearInterval(timer);
   }, [currentIndex, images.length]);
 
   return (
@@ -31,7 +28,7 @@ export default function Page() {
 
       <h1 className="text-4xl font-bold">Ben Shalem 🚀</h1>
 
-      {/* YouTube Video - Responsive 16:9 */}
+      {/* YouTube Video - Eagerly loaded if it's at the very top, but lazy loading is safer if it's slightly down the page */}
       <div className="w-full max-w-3xl">
         <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
           <iframe
@@ -41,15 +38,15 @@ export default function Page() {
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
+            loading="lazy" /* <-- Added lazy loading */
           />
         </div>
       </div>
 
-      {/* Image Carousel - Identical responsive size to the video */}
+      {/* Image Carousel - Below the fold */}
       <div className="w-full max-w-3xl">
         <div className="relative w-full overflow-hidden rounded-2xl border border-white group" style={{ paddingBottom: '56.25%' }}>
           
-          {/* Sliding Images */}
           <div 
             className="absolute top-0 left-0 w-full h-full flex transition-transform duration-700 ease-in-out"
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -60,6 +57,7 @@ export default function Page() {
                   src={src}
                   alt={`Carousel slide ${index + 1}`}
                   className="w-full h-full object-cover"
+                  loading="lazy" /* <-- Added lazy loading so these don't slow down the initial load */
                 />
               </div>
             ))}

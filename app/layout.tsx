@@ -30,6 +30,7 @@ export default function RootLayout({
             src="/background.webp"
             alt=""
             className="site-bg-image"
+            fetchPriority="high" /* <-- Prioritizes the background image for instant loading */
           />
         </div>
 
