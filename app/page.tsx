@@ -98,4 +98,70 @@ export default function Page() {
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center gap-10 p-8">
-      <h1 className
+      <h1 className={styles.title}>Hello World</h1>
+
+      <h1 className="text-4xl font-bold">Ben Shalem 🚀</h1>
+
+      {/* YouTube Video - Lazy loaded */}
+      <div className="w-full max-w-3xl">
+        <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+          <iframe
+            className="absolute top-0 left-0 w-full h-full rounded-2xl"
+            src="https://www.youtube.com/embed/ogRMIxHsKAI"
+            title="Ben Shalem Video"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      {/* Image Carousel - Optimized, Auto-playing, and Swipeable */}
+      <div className="w-full max-w-3xl">
+        <div 
+          className="relative w-full overflow-hidden rounded-2xl border border-white group cursor-grab active:cursor-grabbing" 
+          style={{ paddingBottom: '56.25%' }}
+          // Touch events for Mobile
+          onTouchStart={(e) => handleDragStart(e.targetTouches[0].clientX)}
+          onTouchMove={(e) => handleDragMove(e.targetTouches[0].clientX)}
+          onTouchEnd={handleDragEnd}
+          // Mouse events for PC
+          onMouseDown={(e) => handleDragStart(e.clientX)}
+          onMouseMove={(e) => handleDragMove(e.clientX)}
+          onMouseUp={handleDragEnd}
+          onMouseLeave={handleDragEnd} // Catch cases where mouse leaves the box while dragging
+        >
+          
+          <div 
+            className={`absolute top-0 left-0 w-full h-full flex ${isDragging ? '' : 'transition-transform duration-700 ease-in-out'}`}
+            style={{ 
+              transform: `translateX(calc(-${currentIndex * 100}% - ${isDragging && touchStartX && touchEndX ? (touchStartX - touchEndX) : 0}px))` 
+            }}
+          >
+            {images.map((src, index) => (
+              <div key={index} className="relative min-w-full h-full flex-shrink-0">
+                <Image
+                  src={src}
+                  alt={`Carousel slide ${index + 1}`}
+                  fill
+                  className="object-cover"
+                  unoptimized // <-- Remove this line when you switch to your own local images!
+                  draggable="false" // Prevents the default browser image ghost-dragging on PC
+                />
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </div>
+
+      {/* Accordion Section */}
+      <div className="w-full max-w-3xl">
+        {/* We pass the array into the component via the 'steps' prop */}
+        <Accordion steps={myAccordionData} />
+      </div>
+
+    </main>
+  );
+}
