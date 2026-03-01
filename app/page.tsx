@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import styles from './page.module.css';
+import Accordion from './components/Accordion';
 
 export default function Page() {
   const images = [
@@ -11,6 +12,35 @@ export default function Page() {
     "https://picsum.photos/seed/30/800/450",
     "https://picsum.photos/seed/40/800/450",
     "https://picsum.photos/seed/50/800/450",
+  ];
+
+  // --- Accordion Data ---
+  const myAccordionData = [
+    {
+      id: 1,
+      title: "Step 1: Introduction",
+      content: "This is the content for the first step. It is fully responsive."
+    },
+    {
+      id: 2,
+      title: "Step 2: Setup",
+      content: "Here is the content for step two. When you open this, others close!"
+    },
+    {
+      id: 3,
+      title: "Step 3: Configuration",
+      content: "Content for step three goes here."
+    },
+    {
+      id: 4,
+      title: "Step 4: Execution",
+      content: "Step four details."
+    },
+    {
+      id: 5,
+      title: "Step 5: Completion",
+      content: "Final step content."
+    }
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -68,68 +98,4 @@ export default function Page() {
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center gap-10 p-8">
-      <h1 className={styles.title}>Hello World</h1>
-
-      <h1 className="text-4xl font-bold">Ben Shalem 🚀</h1>
-
-      {/* YouTube Video - Lazy loaded */}
-      <div className="w-full max-w-3xl">
-        <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-          <iframe
-            className="absolute top-0 left-0 w-full h-full rounded-2xl"
-            src="https://www.youtube.com/embed/ogRMIxHsKAI"
-            title="Ben Shalem Video"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            loading="lazy"
-          />
-        </div>
-      </div>
-
-      {/* Image Carousel - Optimized, Auto-playing, and Swipeable */}
-      <div className="w-full max-w-3xl">
-        <div 
-          className="relative w-full overflow-hidden rounded-2xl border border-white group cursor-grab active:cursor-grabbing" 
-          style={{ paddingBottom: '56.25%' }}
-          // Touch events for Mobile
-          onTouchStart={(e) => handleDragStart(e.targetTouches[0].clientX)}
-          onTouchMove={(e) => handleDragMove(e.targetTouches[0].clientX)}
-          onTouchEnd={handleDragEnd}
-          // Mouse events for PC
-          onMouseDown={(e) => handleDragStart(e.clientX)}
-          onMouseMove={(e) => handleDragMove(e.clientX)}
-          onMouseUp={handleDragEnd}
-          onMouseLeave={handleDragEnd} // Catch cases where mouse leaves the box while dragging
-        >
-          
-          <div 
-            className={`absolute top-0 left-0 w-full h-full flex ${isDragging ? '' : 'transition-transform duration-700 ease-in-out'}`}
-            style={{ 
-              transform: `translateX(calc(-${currentIndex * 100}% - ${isDragging && touchStartX && touchEndX ? (touchStartX - touchEndX) : 0}px))` 
-            }}
-          >
-            {images.map((src, index) => (
-              <div key={index} className="relative min-w-full h-full flex-shrink-0">
-                <Image
-                  src={src}
-                  alt={`Carousel slide ${index + 1}`}
-                  fill
-                  className="object-cover"
-                  unoptimized // <-- Remove this line when you switch to your own local images!
-                  draggable="false" // Prevents the default browser image ghost-dragging on PC
-                />
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </div>
-
-      {/* Testimonials */}
-      <div className="w-full max-w-5xl rounded-2xl border border-white/20 bg-white/5 p-6">
-        <p className="text-sm opacity-70 mb-4">Testimonials</p>
-      </div>
-    </main>
-  );
-}
+      <h1 className
