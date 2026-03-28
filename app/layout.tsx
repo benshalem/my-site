@@ -25,18 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <div className="site-bg">
-          <Image
-            src="/background.webp"
-            alt="Site Background"
-            fill
-            priority
-            quality={90}
-            className="site-bg-image"
-          />
-        </div>
-
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>        
         <main className="relative z-10">
           {children}
         </main>
